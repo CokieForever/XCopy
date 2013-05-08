@@ -1,0 +1,222 @@
+/*
+XCopy - Software for copy management
+Copyright (C) 2008-2013  Cokie
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+#include "define.h"
+
+
+#define APSTUDIO_READONLY_SYMBOLS
+#include "afxres.h"
+#undef APSTUDIO_READONLY_SYMBOLS
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+
+OptnDlg DIALOG 0, 0, 150, 410
+STYLE WS_CHILDWINDOW
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON         "Choisir fichier(s)", IDP_FILES, 10, 10, 130, 15
+    LTEXT              "Recherche", IDT_TEXT, 10, 35, 130, 10
+    EDITTEXT           IDE_FILTER, 10, 50, 50, 12, ES_AUTOHSCROLL
+    LTEXT              "Filtre", IDT_TEXT, 10, 65, 50, 10
+    EDITTEXT           IDE_SEARCHDIR, 70, 50, 70, 12, ES_AUTOHSCROLL
+    LTEXT              "Rechercher dans", IDT_TEXT, 70, 65, 60, 10
+    LTEXT              "Répertoire de sortie", IDT_TEXT, 10, 90, 130, 10
+    EDITTEXT           IDE_DIROUT, 10, 105, 130, 12, ES_AUTOHSCROLL
+    CHECKBOX           "Conserver le répertoire d'origine", IDC_NOCHANGEDIR, 10, 125, 130, 10, BS_AUTOCHECKBOX
+    PUSHBUTTON         "Valider", IDP_SEARCH, 1000, 1000, 1, 1
+    CHECKBOX           "Taille maximale totale (Ko) :", IDC_SIZEMAX, 10, 155, 130, 10, BS_AUTOCHECKBOX
+    EDITTEXT           IDE_SIZEMAX, 10, 170, 50, 12, ES_AUTOHSCROLL | ES_NUMBER
+    CHECKBOX           "Durée maximale de la copie (sec) :", IDC_TIMEMAX, 10, 190, 130, 10, BS_AUTOCHECKBOX
+    EDITTEXT           IDE_TIMEMAX, 10, 205, 50, 12, ES_AUTOHSCROLL | ES_NUMBER
+    CHECKBOX           "Fichiers en lecture seule", IDC_READONLY, 10, 235, 130, 10, BS_AUTO3STATE
+    CHECKBOX           "Fichiers cachés", IDC_HIDDEN, 10, 250, 130, 10, BS_AUTO3STATE
+    CHECKBOX           "Fichiers systèmes", IDC_SYSTEM, 10, 265, 130, 10, BS_AUTO3STATE
+    CHECKBOX           "Fichiers archive", IDC_ARCHIVE, 10, 280, 130, 10, BS_AUTO3STATE
+    CHECKBOX           "Remplacer", IDC_REPLACE, 10, 295, 130, 10, BS_AUTO3STATE
+    DEFPUSHBUTTON      "Copier", IDP_COPY, 10, 325, 15, 15, BS_ICON
+    PUSHBUTTON         "Déplacer", IDP_MOVE, 30, 325, 15, 15, BS_ICON
+    PUSHBUTTON         "Supprimer", IDP_DELETE, 50, 325, 15, 15, BS_ICON
+    PUSHBUTTON         "Renommer", IDP_RENAME, 70, 325, 15, 15, BS_ICON
+    PUSHBUTTON         "Crypter", IDP_ENCRYPT, 90, 325, 15, 15, BS_ICON
+    PUSHBUTTON         "Décrypter", IDP_DECRYPT, 110, 325, 15, 15, BS_ICON
+    PUSHBUTTON         "Protéger", IDP_PROTECT, 90, 345, 15, 15, BS_ICON
+    PUSHBUTTON         "Déprotéger", IDP_DISPROTECT, 110, 345, 15, 15, BS_ICON
+    PUSHBUTTON         "Stop", IDP_STOP, 55, 345, 15, 15, BS_ICON
+    PUSHBUTTON         "Bilan", IDP_BILAN, 10, 345, 40, 15
+END
+
+
+StateDlg DIALOG 0, 0, 200, 130
+STYLE WS_CHILDWINDOW | WS_DLGFRAME
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT              "Fichier : [nom inconnu]", IDT_FILENAME, 10, 10, 180, 8
+    LTEXT              "[0 / 0 ko]", IDT_SIZE, 10, 18, 180, 8
+    LTEXT              "Temps restant estimé : 0 sec", IDT_TIMELEFT, 10, 26, 180, 10
+    LTEXT              "Traitement du fichier 0 / 0", IDT_FILENUMBER, 10, 61, 180, 8
+    LTEXT              "[0 / 0 ko]", IDT_TOTALSIZE, 10, 69, 180, 8
+    LTEXT              "Temps restant total estimé : 0 sec", IDT_TIMELEFTCOPY, 10, 77, 180, 10
+    LTEXT              "Copier par paquets de :", IDT_PARTSIZE, 0, 0, 60, 16
+    EDITTEXT           IDE_PARTSIZE, 0, 0, 60, 12, ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT              "ko", IDT_OCTET, 0, 0, 30, 10
+    LTEXT              "Copier un paquet toutes les :", IDT_TIMER, 0, 0, 70, 16
+    EDITTEXT           IDE_TIMER, 0, 0, 60, 12, ES_AUTOHSCROLL
+    LTEXT              "secondes", IDT_SECONDS, 0, 0, 40, 10
+    LTEXT              "Vitesse voulue : 0 Mo/s", IDT_SPEED, 0, 0, 150, 10
+    LTEXT              "Vitesse réelle : 0 Mo/s", IDT_REALSPEED, 0, 0, 150, 10
+    LTEXT              "Vitesse moyenne : 0 Mo/s", IDT_MOYSPEED, 0, 0, 150, 10
+    LTEXT              "Temps écoulé : 0 sec", IDT_TIMECOPY, 10, 112, 150, 10
+END
+
+
+IsSearchingDlg DIALOG 50, 50, 300, 60
+STYLE WS_VISIBLE | WS_POPUPWINDOW
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT              "Fichier : [nom inconnu]", IDT_FILENAME, 10, 10, 280, 8
+    LTEXT              "Trouvés : 0", IDT_NUMBERFILESFOUND, 10, 30, 140, 10
+    LTEXT              "Ajoutés : 0", IDT_NUMBERFILESADDED, 10, 45, 140, 10
+    PUSHBUTTON         "Annuler", IDP_CANCEL, 160, 35, 30, 15
+END
+
+
+BeginEncryption DIALOG 0, 0, 180, 150
+STYLE WS_POPUPWINDOW
+FONT 8, "MS Sans Serif"
+CAPTION "Crypter fichier"
+BEGIN
+    LTEXT              "Mot de passe :", IDT_TEXT, 10, 10, 50, 10
+    EDITTEXT           IDE_PWD, 70, 9, 100, 12, ES_AUTOHSCROLL | ES_PASSWORD
+    LTEXT              "Confirmation :", IDT_PWD2, 10, 30, 50, 10
+    EDITTEXT           IDE_PWD2, 70, 29, 100, 12, ES_AUTOHSCROLL | ES_PASSWORD
+    CONTROL            "Remplacer le fichier d'origine", IDR_REPLACEFILE, "button", BS_AUTORADIOBUTTON | WS_GROUP, 10, 55, 110, 10
+    CONTROL            "Créer un nouveau fichier", IDR_CREATENEWFILE, "button", BS_AUTORADIOBUTTON, 10, 67, 100, 10
+    CHECKBOX           "Supprimer l'ancien fichier", IDC_DELETEOLDFILE, 10, 82, 100, 10, BS_AUTOCHECKBOX
+    LTEXT              "Extension des fichiers cryptés :", IDT_EXTENSION, 10, 100, 100, 10
+    EDITTEXT           IDE_EXTENSION, 115, 99, 55, 12, ES_AUTOHSCROLL
+    CHECKBOX           "Supprimer la seconde extension (si existante)", IDC_DELETEEXTENSION, 10, 97, 170, 10, BS_AUTOCHECKBOX
+    DEFPUSHBUTTON      "Lancer", IDP_OK, 95, 125, 30, 15
+    PUSHBUTTON         "Annuler", IDP_CANCEL, 55, 125, 30, 15
+END
+
+
+BeginRename DIALOG 0, 0, 130, 100
+STYLE WS_POPUPWINDOW
+FONT 8, "MS Sans Serif"
+CAPTION " Renommer fichier"
+BEGIN
+    LTEXT              "Remplacer :", IDT_TEXT, 10, 10, 50, 10
+    EDITTEXT           IDE_TEXTTOREPLACE, 60, 10, 60, 12, ES_AUTOHSCROLL
+    LTEXT              "Par :", IDT_TEXT, 10, 30, 50, 10
+    EDITTEXT           IDE_REPLACETEXT, 60, 30, 60, 12, ES_AUTOHSCROLL
+    CHECKBOX           "Extensions uniquement", IDC_EXTONLY, 10, 50, 100, 10, BS_AUTOCHECKBOX
+    DEFPUSHBUTTON      "Annuler", IDP_CANCEL, 30, 75, 30, 15
+    PUSHBUTTON         "Lancer", IDP_OK, 70, 75, 30, 15
+END
+
+
+BeginProtection DIALOG 0, 0, 180, 120
+STYLE WS_POPUPWINDOW
+FONT 8, "MS Sans Serif"
+CAPTION "Protéger fichier"
+BEGIN
+    LTEXT              "Mot de passe :", IDT_TEXT, 10, 10, 50, 10
+    EDITTEXT           IDE_PWD, 70, 9, 100, 12, ES_AUTOHSCROLL | ES_PASSWORD
+    LTEXT              "Confirmation :", IDT_TEXT, 10, 30, 50, 10
+    EDITTEXT           IDE_PWD2, 70, 29, 100, 12, ES_AUTOHSCROLL | ES_PASSWORD
+    LTEXT              "Autoriser...", IDT_TEXT, 10, 55, 60, 10
+    CHECKBOX           "Lecture", IDC_READ, 10, 70, 60, 10, BS_AUTOCHECKBOX
+    CHECKBOX           "Modification", IDC_MODIF, 10, 85, 60, 10, BS_AUTOCHECKBOX
+    CHECKBOX           "Suppression", IDC_DELETE, 10, 100, 60, 10, BS_AUTOCHECKBOX
+    DEFPUSHBUTTON      "Lancer", IDP_OK, 100, 72, 50, 15
+    PUSHBUTTON         "Annuler", IDP_CANCEL, 100, 92, 50, 15
+END
+
+
+BeginDisprotection DIALOG 0, 0, 370, 190
+STYLE WS_POPUPWINDOW
+FONT 8, "MS Sans Serif"
+CAPTION "Déprotéger fichier"
+BEGIN
+    PUSHBUTTON         "Déprotéger", IDP_DISPROTECT, 310, 10, 50, 15
+    PUSHBUTTON         "Sél. tout", IDP_ALL, 310, 30, 50, 15
+    PUSHBUTTON         "=> Liste", IDP_ADD, 310, 50, 50, 15
+    DEFPUSHBUTTON      "Terminer", IDP_OK, 310, 70, 50, 15
+END
+
+
+BeginSearch DIALOG 0, 0, 250, 85
+STYLE WS_POPUPWINDOW
+FONT 8, "MS Sans Serif"
+CAPTION "Rechercher"
+BEGIN
+    CHECKBOX           "Respecter la casse", IDC_CASSSENSITIVE, 10, 10, 120, 10, BS_AUTOCHECKBOX
+    CHECKBOX           "Utiliser les caractères génériques", IDC_WILDCARDS, 10, 25, 120, 10, BS_AUTOCHECKBOX
+    CHECKBOX           "Recherche récursive", IDC_RECURSIVE, 10, 40, 120, 10, BS_AUTOCHECKBOX
+    CONTROL            "Répertoires", IDR_INCLUDEDIRS, "button", BS_AUTORADIOBUTTON | WS_GROUP, 150, 10, 90, 10
+    CONTROL            "Fichiers", IDR_INCLUDEFILES, "button", BS_AUTORADIOBUTTON, 150, 25, 90, 10
+    CONTROL            "Les deux", IDR_INCLUDEBOTH, "button", BS_AUTORADIOBUTTON, 150, 40, 90, 10
+    DEFPUSHBUTTON      "Lancer", IDP_OK, 130, 60, 30, 15
+    PUSHBUTTON         "Annuler", IDP_CANCEL, 90, 60, 30, 15
+END
+
+
+Password DIALOG 0, 0, 160, 30
+STYLE WS_POPUPWINDOW
+FONT 8, "MS Sans Serif"
+CAPTION "Mot de passe"
+BEGIN
+    EDITTEXT           IDE_PWD, 10, 11, 100, 12, ES_AUTOHSCROLL | ES_PASSWORD
+    DEFPUSHBUTTON      "Ok", IDP_OK, 120, 10, 30, 15
+    EDITTEXT           IDE_MEMORY, 1000, 1000, 100, 12, ES_AUTOHSCROLL | ES_PASSWORD
+END
+
+
+Bilan DIALOG 0, 0, 500, 300
+STYLE WS_POPUPWINDOW
+FONT 8, "MS Sans Serif"
+CAPTION "Bilan des erreurs rencontrées"
+BEGIN
+END
+
+
+
+#endif    // French (France) resources
+
+
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "XCopy.exe.manifest"
+iconRename ICON "icons\\renommer.ico"
+iconCopy ICON "icons\\copier.ico"
+iconMove ICON "icons\\deplacer.ico"
+iconDelete ICON "icons\\corbeille.ico"
+iconEncrypt ICON "icons\\crypter.ico"
+iconDecrypt ICON "icons\\decrypter.ico"
+iconStop ICON "icons\\stop.ico"
+iconShield ICON "icons\\okshield.ico"
+iconNoShield ICON "icons\\noshield.ico"
+iconSearch ICON "icons\\search.ico"
+
+
+//insérer ressources ici
